@@ -2,4 +2,4 @@
 
 The repository contains the list of projects with common use cases of [ServiceStack](http://www.servicestack.net).
 
-  - [CustomAuthentication] demonstrates how to create custom AuthUserSession and how to create custom simple AuthProvider. The project also demonstrates how to invoke authentication service using Ajax or using JsonClientService together with ASP.NET Form. 
+  - [CustomAuthentication](https://github.com/ServiceStack/ServiceStack.UseCases/tree/master/CustomAuthentication) demonstrates how to createa custom [AuthUserSession](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.ServiceInterface/Auth/AuthUserSession.cs) and how to create custom [AuthProvider](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.ServiceInterface/Auth/AuthProvider.cs). The project also demonstrates how to invoke authentication service using [jQuery](http://jquery.com/) or using [JsonServiceClient](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/ServiceClient.Web/JsonServiceClient.cs) together with ASP.NET Form. 
