@@ -1,0 +1,29 @@
+*.doc  diff=astextplain
+*.DOC	diff=astextplain
+*.docx	diff=astextplain
+*.DOCX	diff=astextplain
+*.dot	diff=astextplain
+*.DOT	diff=astextplain
+*.pdf	diff=astextplain
+*.PDF	diff=astextplain
+*.rtf	diff=astextplain
+*.RTF	diff=astextplain
+
+*.jpg  	binary
+*.png 	binary
+*.gif 	binary
+
+*.cs text eol=crlf diff=csharp 
+*.aspx text eol=crlf 
+*.asax text eol=crlf 
+*.config text=auto 
+*.html text eol=crlf
+*.htm text eol=crlf
+*.css text=auto
+*.js text=auto
+
+*.csproj text=auto merge=union 
+*.vbproj text=auto merge=union 
+*.fsproj text=auto merge=union 
+*.dbproj text=auto merge=union 
+*.sln text=auto eol=crlf merge=union 
