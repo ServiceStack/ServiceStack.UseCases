@@ -30,7 +30,7 @@ namespace CustomAuthenticationMvc.Controllers
         public ActionResult RunHelloService()
         {
             var client = CreateJsonServiceClient();
-            var authResponse = client.Post<HelloResponse>("/Hello", new HelloRequest {Name = User.Identity.Name});
+            var authResponse = client.Post(new HelloRequest {Name = User.Identity.Name});
             
             ViewBag.Response = authResponse.Result;
             ViewBag.Counter = ServiceStackSession.Get<int>(HelloService.HelloServiceCounterKey);

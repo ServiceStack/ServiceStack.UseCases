@@ -63,7 +63,7 @@ namespace CustomAuthenticationMvc.App_Start
 
     [Authenticate]
     [Route("/hello")]
-    public class HelloRequest
+    public class HelloRequest : IReturn<HelloResponse>
     {
         public string Name { get; set; }
     }
@@ -73,11 +73,11 @@ namespace CustomAuthenticationMvc.App_Start
         public string Result { get; set; }
     }
 
-    public class HelloService : ServiceBase<HelloRequest>
+    public class HelloService : Service
     {
         public const string HelloServiceCounterKey = "HelloServiceCounter";
 
-        protected override object Run(HelloRequest request)
+        public object Any(HelloRequest request)
         {
             Session.Set(HelloServiceCounterKey, Session.Get<int>(HelloServiceCounterKey) + 1);
             var userSession = SessionAs<CustomUserSession>();

@@ -61,7 +61,7 @@ namespace CustomAuthentication.App_Code
 
     [Authenticate]
     [Route("/hello")]
-    public class HelloRequest
+    public class HelloRequest : IReturn<HelloResponse>
     {
         public string Name { get; set; }
     }
@@ -71,9 +71,9 @@ namespace CustomAuthentication.App_Code
         public string Result { get; set; }
     }
 
-    public class HelloService : ServiceBase<HelloRequest>
+    public class HelloService : Service
     {
-        protected override object Run(HelloRequest request)
+        public object Any(HelloRequest request)
         {
             var userSession = SessionAs<CustomUserSession>();
             var roles = string.Join(", ", userSession.Roles.ToArray());
