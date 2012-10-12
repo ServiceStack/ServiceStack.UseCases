@@ -13,7 +13,6 @@ namespace CustomAuthentication
 {
     public partial class _Default : System.Web.UI.Page
     {
-        private string baseUrl = "http://localhost:52983/api";
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -21,6 +20,7 @@ namespace CustomAuthentication
 
         protected void btnAuth_Click(object sender, EventArgs e)
         {
+            var baseUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/api";
             var client = new JsonServiceClient(baseUrl);
             var authResponse = client.Post<AuthResponse>("/auth", new Auth
                             {
