@@ -8,8 +8,10 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using ServiceStack.ServiceClient.Web;
+using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
+using ServiceStack.WebHost.Endpoints;
 using WebMatrix.WebData;
 using CustomAuthenticationMvc.Filters;
 using CustomAuthenticationMvc.Models;
@@ -40,14 +42,17 @@ namespace CustomAuthenticationMvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var authResponse = AuthenticateWithServiceStack(model);
-                
-                // add SS session cookie
-                var response = System.Web.HttpContext.Current.Response.ToResponse();
-                response.Cookies.AddSessionCookie(SessionFeature.SessionId, authResponse.SessionId);
+                var authService = AppHostBase.Instance.TryResolve<AuthService>();
+                authService.RequestContext = CreateRequestContext();
+                var response = authService.Authenticate(new Auth
+                                              {
+                                                  UserName = model.UserName,
+                                                  Password = model.Password,
+                                                  RememberMe = model.RememberMe
+                                              });
 
                 // add ASP.NET auth cookie
-                FormsAuthentication.SetAuthCookie(model.UserName, false);
+                FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
 
                 return RedirectToLocal(returnUrl);
             }
@@ -55,16 +60,6 @@ namespace CustomAuthenticationMvc.Controllers
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);
-        }
-
-        private AuthResponse AuthenticateWithServiceStack(LoginModel model)
-        {
-            var client = CreateJsonServiceClient();
-            return client.Post<AuthResponse>("/auth", new Auth
-                                                          {
-                                                              UserName = model.UserName,
-                                                              Password = model.Password
-                                                          });
         }
 
         //

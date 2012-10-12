@@ -8,6 +8,8 @@ using CustomAuthenticationMvc.App_Start;
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.ServiceClient.Web;
 using ServiceStack.ServiceClient.Web;
+using ServiceStack.ServiceInterface.Auth;
+using ServiceStack.WebHost.Endpoints;
 
 namespace CustomAuthenticationMvc.Controllers
 {
@@ -29,8 +31,9 @@ namespace CustomAuthenticationMvc.Controllers
 
         public ActionResult RunHelloService()
         {
-            var client = CreateJsonServiceClient();
-            var authResponse = client.Post(new HelloRequest {Name = User.Identity.Name});
+            var helloService = AppHostBase.Instance.TryResolve<HelloService>();
+            helloService.RequestContext = CreateRequestContext();
+            var authResponse = (HelloResponse)helloService.Any(new HelloRequest { Name = User.Identity.Name });
             
             ViewBag.Response = authResponse.Result;
             ViewBag.Counter = ServiceStackSession.Get<int>(HelloService.HelloServiceCounterKey);

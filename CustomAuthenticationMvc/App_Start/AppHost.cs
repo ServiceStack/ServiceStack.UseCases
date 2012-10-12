@@ -86,30 +86,4 @@ namespace CustomAuthenticationMvc.App_Start
         }
     }
 
-
-    public static class CookiesExtension
-    {
-        public static void ToCookiesContainer(this System.Web.HttpRequest request, CookieContainer container)
-        {
-            var cookieCollection = request.Cookies;
-            for (var i = 0; i < cookieCollection.Count; i++)
-            {
-                var httpCookie = cookieCollection.Get(i);
-                var cookie = new Cookie
-                {
-                    Domain = request.Url.Host,
-                    Name = httpCookie.Name,
-                    Expires = httpCookie.Expires,
-                    Path = httpCookie.Path,
-                    Secure = httpCookie.Secure,
-                    Value = httpCookie.Value
-                };
-
-                container.Add(cookie);
-            }
-
-
-        }
-    }
-
 }

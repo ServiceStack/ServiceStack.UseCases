@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using CustomAuthenticationMvc.App_Start;
 using ServiceStack.CacheAccess;
 using ServiceStack.ServiceClient.Web;
+using ServiceStack.ServiceHost;
+using ServiceStack.ServiceInterface;
 using ServiceStack.WebHost.Endpoints;
 
 namespace CustomAuthenticationMvc.Controllers
@@ -24,12 +26,10 @@ namespace CustomAuthenticationMvc.Controllers
             }
         }
 
-        protected JsonServiceClient CreateJsonServiceClient()
+        protected HttpRequestContext CreateRequestContext()
         {
-            var baseUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/api";
-            var client = new JsonServiceClient(baseUrl);
-            System.Web.HttpContext.Current.Request.ToCookiesContainer(client.CookieContainer);
-            return client;
+            return new HttpRequestContext(System.Web.HttpContext.Current.Request.ToRequest(),
+                                                            System.Web.HttpContext.Current.Response.ToResponse(), null);
         }
     }
 }
