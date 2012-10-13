@@ -2,7 +2,6 @@ bin/
 obj/
 .idea/
 latest/
-packages/
 /env-vars.bat
 *.suo
 #ignore thumbnails created by windows
