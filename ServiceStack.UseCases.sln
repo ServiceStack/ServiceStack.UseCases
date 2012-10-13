@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAuthentication", "Cus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAuthenticationMvc", "CustomAuthenticationMvc\CustomAuthenticationMvc.csproj", "{4FC2AC47-239D-4D0E-AB75-AFDB8ED64084}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.ProductsExample", "WebApi.ProductsExample\WebApi.ProductsExample.csproj", "{FEDD2DEB-6947-4DD3-BE12-D789AC53A88B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{4FC2AC47-239D-4D0E-AB75-AFDB8ED64084}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FC2AC47-239D-4D0E-AB75-AFDB8ED64084}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FC2AC47-239D-4D0E-AB75-AFDB8ED64084}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEDD2DEB-6947-4DD3-BE12-D789AC53A88B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEDD2DEB-6947-4DD3-BE12-D789AC53A88B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEDD2DEB-6947-4DD3-BE12-D789AC53A88B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEDD2DEB-6947-4DD3-BE12-D789AC53A88B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
