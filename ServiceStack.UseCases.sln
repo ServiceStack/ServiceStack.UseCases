@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAuthenticationMvc", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.ProductsExample", "WebApi.ProductsExample\WebApi.ProductsExample.csproj", "{FEDD2DEB-6947-4DD3-BE12-D789AC53A88B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reusability", "Reusability\Reusability.csproj", "{73813438-DEAF-429B-B234-16198447ECE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "HelloWorld\HelloWorld.csproj", "{85DE112E-42AE-4371-93BA-E556B7D0D4CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,14 @@ Global
 		{FEDD2DEB-6947-4DD3-BE12-D789AC53A88B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEDD2DEB-6947-4DD3-BE12-D789AC53A88B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEDD2DEB-6947-4DD3-BE12-D789AC53A88B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73813438-DEAF-429B-B234-16198447ECE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73813438-DEAF-429B-B234-16198447ECE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73813438-DEAF-429B-B234-16198447ECE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73813438-DEAF-429B-B234-16198447ECE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85DE112E-42AE-4371-93BA-E556B7D0D4CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85DE112E-42AE-4371-93BA-E556B7D0D4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85DE112E-42AE-4371-93BA-E556B7D0D4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85DE112E-42AE-4371-93BA-E556B7D0D4CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

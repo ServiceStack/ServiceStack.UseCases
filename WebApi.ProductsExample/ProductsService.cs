@@ -48,5 +48,4 @@ namespace WebApi.ProductsExample
             return product;
         }
     }
-
 }
