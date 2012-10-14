@@ -8,7 +8,7 @@ namespace Reusability
     public class Tests
     {
         [Test]
-        public void Can_send_to_Python()
+        public void Can_send_to_GoogleAppEngine_JSON_Python_Service()
         {
             var client = new JsonServiceClient("http://servicestackdemo.appspot.com");
             var receipt = client.Post(new SMessage { 
