@@ -34,6 +34,10 @@ namespace WebApi.ProductsExample
     "\nProducts over $2:".Print();
     productsOver2Bucks.PrintDump();
 
+    List<Product> hardwareOver2Bucks = client.Get(new FindProducts { PriceGreaterThan = 2, Category = "Hardware" });
+    "\nHardware over $2:".Print();
+    hardwareOver2Bucks.PrintDump();
+
     Product product1 = client.Get(new GetProduct { Id = 1 });
     "\nProduct with Id = 1:".Print();
     product1.PrintDump();

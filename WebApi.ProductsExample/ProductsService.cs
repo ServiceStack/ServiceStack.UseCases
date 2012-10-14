@@ -29,11 +29,12 @@ namespace WebApi.ProductsExample
 
         public object Get(FindProducts request)
         {
-            return request.Category != null
-                ? products.Where(x => x.Category == request.Category)
-                : request.PriceGreaterThan.HasValue
-                    ? products.Where(x => x.Price > request.PriceGreaterThan.Value)
-                    : products;
+            var ret = products.AsQueryable();
+            if (request.Category != null)
+                ret = ret.Where(x => x.Category == request.Category);
+            if (request.PriceGreaterThan.HasValue)
+                ret = ret.Where(x => x.Price > request.PriceGreaterThan.Value);            
+            return ret;
         }
 
         public object Get(GetProduct request)
