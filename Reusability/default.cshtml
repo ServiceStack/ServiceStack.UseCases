@@ -1,13 +1,124 @@
-﻿<!doctype html>
+﻿@using ServiceStack.ServiceInterface
+@using ServiceStack.ServiceInterface.Auth
+@{
+    var userSession = SessionFeature.GetOrCreateSession<CustomSession>(Cache);
+    if (base.Request.HttpMethod == "POST")
+    {
+        var email = base.Request.FormData["email"];
+        if (!string.IsNullOrEmpty(email) && Db.IdOrDefault<EmailRegistration>(email) == null)
+        {
+            Db.Insert(new EmailRegistration { Email = email });
+        }
+    }
+}
+<!doctype html>
 <html lang="en-us">
 <head>
     <title>Reusability Demo</title>
+    <style type="text/css">
+        body { font: 13px/18px Arial; padding: 20px; width:850px; }
+        h2 { color: green; }
+        input[type=text], textarea { width: 250px; }
+        textarea { height: 70px; font-family: arial; }
+        label { font-weight: bold; }
+    </style>
 </head>
 <body>
     
-    <form action="/auth/twitter">
-        <
+    <iframe id="receipts" src="/receipts" style="position: absolute;width:850px;top:20px;right:20px;height:95%;"></iframe>
+    
+    <div style="float:right">
+        <h2><a href="/">Broadcast SMessage to the world!</a></h2>
+
+        <h4>/smessage</h4>
+        <form action="/smessage" method="GET" target="smessage">
+            <dl>
+                <dd><input name="Subject" type="text" placeholder="Subject" value="Sent with SMessage" /></dd>
+                <dd>
+                    <textarea name="Body" placeholder="Message Body"></textarea>
+                </dd>
+                <dd>
+                    <label for="defer">Defer</label>
+                    <input type="checkbox" id="defer" name="Defer" value="True" />
+                </dd>
+                <dd>
+                    <button type="submit">Send</button>
+                </dd>
+            </dl>
+        </form>
+        
+        <h4>/email</h4>
+        <form action="/email" method="GET" target="smessage">
+            <dl>
+                <dd><input name="To" type="text" placeholder="To" value="demis.bellot+1@@gmail.com" /></dd>
+                <dd><input name="Subject" type="text" placeholder="Subject" value="Email Message Only" /></dd>
+                <dd>
+                    <textarea name="Body" placeholder="Message Body"></textarea>
+                </dd>
+                <dd>
+                    <button type="submit">Send</button>
+                </dd>
+            </dl>
+        </form>    
+    </div>
+
+    <h2>Posting to Twitter streams</h2>
+    <ul>
+        @foreach (var twAuth in Db.Select<UserOAuthProvider>(q => q.Provider == "twitter"))
+        {
+            <li><a href="http://twitter.com/@twAuth.UserName">@@@twAuth.UserName</a></li>
+        }
+    </ul>
+    @if (!userSession.IsAuthorized("twitter"))
+    {
+        <h3>
+            Register new Twitter user</h3>
+        <div id="twitter-signin">
+            <a href="/auth/twitter">
+                <img src="/Content/img/sign-in-with-twitter-l.png" alt="Sign-in with Twitter" /></a>
+        </div>
+    }
+    
+    <h2>Posting to Facebook walls</h2>
+    <ul>
+        @foreach (var fbAuth in Db.Select<UserOAuthProvider>(q => q.Provider == "facebook"))
+        {
+            <li><a href="http://www.facebook.com/@fbAuth.UserName">@fbAuth.UserName</a></li>
+        }
+    </ul>
+    @if (!userSession.IsAuthorized("facebook"))
+    {
+        <h3>
+            Register new Facebook user</h3>
+        <div id="facebook-signin">
+            <a href="/auth/facebook">
+                <img src="/Content/img/sign-in-with-facebook.png" alt="Sign-in with Facebook" /></a>
+        </div>
+    }
+
+    <h2>Send to Emails</h2>
+    <ul>
+        @foreach (var registration in Db.Select<EmailRegistration>())
+        {
+            <li>@registration.Email</li>
+        }
+    </ul>
+
+    <h3>Register new Email</h3>
+    <form action="/" method="POST">
+        <div>
+            <input name="email" type="text" placeholder="Email" />
+        </div>
+        <div class="actions">
+            <button type="submit">Add Email</button>
+        </div>
     </form>
 
+    <p>&nbsp;</p>
+    
+    <h2>/smessage results</h2>
+
+    <iframe id="smessage" src="about:blank" style="width:100%;height:300px;" onload="document.getElementById('receipts').src=document.getElementById('receipts').src"></iframe>
+    
 </body>
 </html>
