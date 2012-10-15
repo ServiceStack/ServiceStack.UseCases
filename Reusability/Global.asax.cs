@@ -1,16 +1,15 @@
 ﻿using System;
 using Funq;
 using ServiceStack.Common.Utils;
-using ServiceStack.Common.Web;
 using ServiceStack.Configuration;
 using ServiceStack.DataAnnotations;
+using ServiceStack.Messaging;
 using ServiceStack.MiniProfiler;
 using ServiceStack.MiniProfiler.Data;
 using ServiceStack.OrmLite;
 using ServiceStack.Razor;
 using ServiceStack.Redis;
 using ServiceStack.Redis.Messaging;
-using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Admin;
 using ServiceStack.ServiceInterface.Auth;
@@ -66,6 +65,7 @@ namespace Reusability
 
             //Register MQ Service
             var mqService = new RedisMqServer(container.Resolve<IRedisClientsManager>());
+            container.Register<IMessageService>(mqService);
             container.Register(mqService.MessageFactory);
 
             mqService.RegisterHandler<SMessage>(x => container.Resolve<SMessageService>().Any(x.GetBody()));
@@ -75,8 +75,10 @@ namespace Reusability
 
             mqService.Start();
 
-            //Uncomment to preserve state across restarts
-            ResetAll(container, authRepo);
+            if (appSettings.Get("ResetAllOnStartUp", false))
+            {
+                ResetAll(container, authRepo);
+            }
         }
 
         private static void ResetAll(Container container, OrmLiteAuthRepository authRepo)

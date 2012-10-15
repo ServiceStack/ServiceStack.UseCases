@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Web;
 using ServiceStack.Common.Web;
 using ServiceStack.DataAnnotations;
 using ServiceStack.Messaging;
@@ -14,6 +13,7 @@ using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
+using ServiceStack.ServiceInterface.ServiceModel;
 using ServiceStack.Text;
 
 namespace Reusability
@@ -29,6 +29,7 @@ namespace Reusability
     public class SMessageResponse
     {
         public long TimeTakenMs { get; set; }
+        public ResponseStatus ResponseStatus { get; set; }
     }
 
     [Route("/receipts")]
@@ -116,6 +117,10 @@ namespace Reusability
     }
 
 
+    /* 
+     * EMAIL
+     */
+
     [Route("/email")]
     public class EmailMessage : IReturn<SMessageReceipt>
     {
@@ -150,6 +155,10 @@ namespace Reusability
         }
     }
 
+
+    /* 
+     * FACEBOOK
+     */
 
     public class FacebookMessage : IReturn<SMessageReceipt>
     {
@@ -206,26 +215,22 @@ namespace Reusability
             var results = new List<SMessageReceipt>();
             foreach (var message in messages)
             {
-                var receipt = new SMessageReceipt {
+                Call(message.Method, message.AuthToken, message.Params);
+                results.Add(new SMessageReceipt {
                     Type = "facebook",
                     To = message.UserName,
                     From = "Reusability App",
                     RefId = id++.ToString(),
-                };
-                try
-                {
-                    Call(message.Method, message.AuthToken, message.Params);
-                }
-                catch (System.Exception ex)
-                {
-                    receipt.Error = ex.Message;
-                }
-
-                results.Add(receipt);
+                });
             }
             return results;
         }
     }
+
+
+    /* 
+     * TWITTER
+     */
 
     public class PostStatusTwitter
     {
@@ -270,11 +275,11 @@ namespace Reusability
                 };
                 try
                 {
-                    var response = PostToUrl("http://api.twitter.com/1/statuses/update.json",
+                    PostToUrl("http://api.twitter.com/1/statuses/update.json",
                         message.AccessToken, message.AccessTokenSecret,
                         new Dictionary<string, string> { { "status", message.Status } });
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
                     receipt.Error = ex.Message;
                 }

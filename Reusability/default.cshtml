@@ -16,7 +16,7 @@
 <head>
     <title>Reusability Demo</title>
     <style type="text/css">
-        body { font: 13px/18px Arial; padding: 20px; width:850px; }
+        body { font: 13px/18px Arial; margin: 0; padding: 0 1%; width:47%;  }
         h2 { color: green; }
         input[type=text], textarea { width: 250px; }
         textarea { height: 70px; font-family: arial; }
@@ -24,9 +24,16 @@
     </style>
 </head>
 <body>
-    
-    <iframe id="receipts" src="/receipts" style="position: absolute;width:850px;top:20px;right:20px;height:95%;"></iframe>
-    
+
+    <iframe id="receipts" src="/receipts" style="position:absolute;width:45%;top:50%;left:1%;height:47%;"></iframe>
+    <iframe id="mqstats"  src="/mqstats"  style="position:absolute;width:45%;top:1%;right:1%;height:47%;"></iframe>
+    <iframe id="mqdump"   src="/mqdump"   style="position:absolute;width:45%;top:50%;right:1%;height:47%;"></iframe>
+    <div id="mqdump-links" style="position:absolute;bottom:5px;right:1%;">
+        <a href="/mqdump/EmailMessage" target="mqdump">/mqdump/EmailMessage</a>
+        | <a href="/mqdump/CallFacebook" target="mqdump">/mqdump/CallFacebook</a>
+        | <a href="/mqdump/PostStatusTwitter" target="mqdump">/mqdump/PostStatusTwitter</a>
+    </div>
+
     <div style="float:right">
         <h2><a href="/">Broadcast SMessage to the world!</a></h2>
 
@@ -39,7 +46,7 @@
                 </dd>
                 <dd>
                     <label for="defer">Defer</label>
-                    <input type="checkbox" id="defer" name="Defer" value="True" />
+                    <input type="checkbox" id="defer" name="Defer" value="True" checked="checked" />
                 </dd>
                 <dd>
                     <button type="submit">Send</button>
@@ -57,6 +64,21 @@
                 </dd>
                 <dd>
                     <button type="submit">Send</button>
+                </dd>
+            </dl>
+        </form>    
+        
+        <h4>/mqstats</h4>
+        <form action="/mqstats" method="GET" target="mqstats">
+            <dl>
+                <dd>
+                    <label for="stop">Stop</label>
+                    <input type="checkbox" id="stop" name="Stop" value="True" />
+                    <label for="start">Start</label>
+                    <input type="checkbox" id="start" name="Start" value="True" />
+                </dd>
+                <dd>
+                    <button type="submit">Redis MQ Server</button>
                 </dd>
             </dl>
         </form>    
@@ -113,12 +135,13 @@
             <button type="submit">Add Email</button>
         </div>
     </form>
-
-    <p>&nbsp;</p>
     
-    <h2>/smessage results</h2>
-
-    <iframe id="smessage" src="about:blank" style="width:100%;height:300px;" onload="document.getElementById('receipts').src=document.getElementById('receipts').src"></iframe>
+    <h2 style="margin:2% 0 1% 0;">FORM Results: /smessage</h2>
+    <script type="text/javascript">
+        var $id = function (id) { return document.getElementById(id); }
+    </script>
+    <iframe id="smessage" src="about:blank" style="width:60%;height:220px;" 
+        onload="$id('receipts').src=$id('receipts').src;$id('mqstats').src=$id('mqstats').src;$id('mqdump').src=$id('mqdump').src"></iframe>
     
 </body>
 </html>
