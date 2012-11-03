@@ -68,10 +68,10 @@ namespace Reusability
             container.Register<IMessageService>(mqService);
             container.Register(mqService.MessageFactory);
 
-            mqService.RegisterHandler<SMessage>(x => container.Resolve<SMessageService>().Any(x.GetBody()));
-            mqService.RegisterHandler<CallFacebook>(x => container.Resolve<SMessageService>().Any(x.GetBody()));
-            mqService.RegisterHandler<EmailMessage>(x => container.Resolve<SMessageService>().Any(x.GetBody()));
-            mqService.RegisterHandler<PostStatusTwitter>(x => container.Resolve<SMessageService>().Any(x.GetBody()));
+            mqService.RegisterHandler<SMessage>(ServiceController.ExecuteMessage);
+            mqService.RegisterHandler<CallFacebook>(ServiceController.ExecuteMessage);
+            mqService.RegisterHandler<EmailMessage>(ServiceController.ExecuteMessage);
+            mqService.RegisterHandler<PostStatusTwitter>(ServiceController.ExecuteMessage);
 
             mqService.Start();
 

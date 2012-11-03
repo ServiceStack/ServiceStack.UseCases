@@ -1,7 +1,6 @@
-﻿@using ServiceStack.ServiceInterface
-@using ServiceStack.ServiceInterface.Auth
+﻿@using ServiceStack.ServiceInterface.Auth
 @{
-    var userSession = SessionFeature.GetOrCreateSession<CustomSession>(Cache);
+    var userSession = base.GetSession<CustomSession>();
     if (base.Request.HttpMethod == "POST")
     {
         var email = base.Request.FormData["email"];
@@ -25,9 +24,9 @@
 </head>
 <body>
 
-    <iframe id="receipts" src="/receipts" style="position:absolute;width:45%;top:50%;left:1%;height:47%;"></iframe>
-    <iframe id="mqstats"  src="/mqstats"  style="position:absolute;width:45%;top:1%;right:1%;height:47%;"></iframe>
-    <iframe id="mqdump"   src="/mqdump"   style="position:absolute;width:45%;top:50%;right:1%;height:47%;"></iframe>
+    <iframe id="receipts" src="/receipts" style="position:absolute;width:48%;top:53%;left:1%;height:44%;"></iframe>
+    <iframe id="mqstats"  src="/mqstats"  style="position:absolute;width:48%;top:1%;right:1%;height:50%;"></iframe>
+    <iframe id="mqdump"   src="/mqdump"   style="position:absolute;width:48%;top:53%;right:1%;height:44%;"></iframe>
     <div id="mqdump-links" style="position:absolute;bottom:5px;right:1%;">
         <a href="/mqdump/EmailMessage" target="mqdump">/mqdump/EmailMessage</a>
         | <a href="/mqdump/CallFacebook" target="mqdump">/mqdump/CallFacebook</a>
@@ -39,6 +38,7 @@
 
         <h4>/smessage</h4>
         <form action="/smessage" method="GET" target="smessage">
+            <input type="hidden" name="format" value="json" />
             <dl>
                 <dd><input name="Subject" type="text" placeholder="Subject" value="Sent with SMessage" /></dd>
                 <dd>
@@ -140,7 +140,7 @@
     <script type="text/javascript">
         var $id = function (id) { return document.getElementById(id); }
     </script>
-    <iframe id="smessage" src="about:blank" style="width:60%;height:220px;" 
+    <iframe id="smessage" src="about:blank" style="width:60%;height:170px;" 
         onload="$id('receipts').src=$id('receipts').src;$id('mqstats').src=$id('mqstats').src;$id('mqdump').src=$id('mqdump').src"></iframe>
     
 </body>

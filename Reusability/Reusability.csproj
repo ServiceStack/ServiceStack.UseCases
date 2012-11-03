@@ -36,8 +36,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.1\lib\nunit.framework.dll</HintPath>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>..\packages\ServiceStack.OrmLite.Sqlite.Mono.3.9.26\lib\net35\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack">
       <HintPath>..\packages\ServiceStack.3.9.25\lib\net35\ServiceStack.dll</HintPath>
@@ -47,6 +51,12 @@
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>..\packages\ServiceStack.Common.3.9.25\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite">
+      <HintPath>..\packages\ServiceStack.OrmLite.Sqlite.Mono.3.9.26\lib\net35\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite.Sqlite">
+      <HintPath>..\packages\ServiceStack.OrmLite.Sqlite.Mono.3.9.26\lib\net35\ServiceStack.OrmLite.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite.SqlServer">
       <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.9.26\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
@@ -60,8 +70,9 @@
     <Reference Include="ServiceStack.ServiceInterface">
       <HintPath>..\packages\ServiceStack.3.9.25\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text">
-      <HintPath>..\packages\ServiceStack.Text.3.9.26\lib\net35\ServiceStack.Text.dll</HintPath>
+    <Reference Include="ServiceStack.Text, Version=3.9.27.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ServiceStack.Text.3.9.27\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -102,6 +113,9 @@
     <Content Include="sqlite3.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="sqlite\x64\sqlite3.dll" />
+    <Content Include="sqlite\x86\sqlite3.dll" />
+    <Content Include="sqlite\x86\sqlite3.exe" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
