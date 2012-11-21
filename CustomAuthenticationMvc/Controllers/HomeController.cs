@@ -8,6 +8,7 @@ using CustomAuthenticationMvc.App_Start;
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.ServiceClient.Web;
 using ServiceStack.ServiceClient.Web;
+using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
 
@@ -32,7 +33,7 @@ namespace CustomAuthenticationMvc.Controllers
         public ActionResult RunHelloService()
         {
             var helloService = AppHostBase.Instance.TryResolve<HelloService>();
-            helloService.RequestContext = CreateRequestContext();
+            helloService.RequestContext = System.Web.HttpContext.Current.ToRequestContext();
             var authResponse = (HelloResponse)helloService.Any(new HelloRequest { Name = User.Identity.Name });
             
             ViewBag.Response = authResponse.Result;

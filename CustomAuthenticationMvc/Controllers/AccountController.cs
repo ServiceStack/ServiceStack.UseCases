@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
+using ServiceStack.Common.Web;
 using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
@@ -42,19 +43,25 @@ namespace CustomAuthenticationMvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var authService = AppHostBase.Instance.TryResolve<AuthService>();
-                authService.RequestContext = CreateRequestContext();
-                var response = authService.Authenticate(new Auth
-                                              {
-                                                  UserName = model.UserName,
-                                                  Password = model.Password,
-                                                  RememberMe = model.RememberMe
-                                              });
+                try
+                {
+                    var authService = AppHostBase.Resolve<AuthService>();
+                    authService.RequestContext = System.Web.HttpContext.Current.ToRequestContext();
+                    var response = authService.Authenticate(new Auth
+                                                                {
+                                                                    UserName = model.UserName,
+                                                                    Password = model.Password,
+                                                                    RememberMe = model.RememberMe
+                                                                });
 
-                // add ASP.NET auth cookie
-                FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    // add ASP.NET auth cookie
+                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
 
-                return RedirectToLocal(returnUrl);
+                    return RedirectToLocal(returnUrl);
+                }
+                catch (HttpError)
+                {
+                }
             }
 
             // If we got this far, something failed, redisplay form

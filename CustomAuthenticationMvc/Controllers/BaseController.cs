@@ -22,14 +22,8 @@ namespace CustomAuthenticationMvc.Controllers
         {
             get
             {
-                return _serviceStackSession ?? (_serviceStackSession = AppHostBase.Instance.Container.Resolve<ISessionFactory>().GetOrCreateSession());
+                return _serviceStackSession ?? (_serviceStackSession = AppHostBase.Resolve<ISessionFactory>().GetOrCreateSession());
             }
-        }
-
-        protected HttpRequestContext CreateRequestContext()
-        {
-            return new HttpRequestContext(System.Web.HttpContext.Current.Request.ToRequest(),
-                                                            System.Web.HttpContext.Current.Response.ToResponse(), null);
         }
     }
 }
