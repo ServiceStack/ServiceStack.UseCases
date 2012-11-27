@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using CustomAuthenticationMvc.App_Start;
+using CustomAuthenticationMvc.Helper;
 
 namespace CustomAuthenticationMvc
 {

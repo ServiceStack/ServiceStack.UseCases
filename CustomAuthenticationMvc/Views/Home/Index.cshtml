@@ -23,7 +23,6 @@
                         You are authenticated with <em>@User.Identity.Name</em>. You can run HelloService which requires Authentication:<br />
                         @using (Html.BeginForm("RunHelloService", "Home")) {
                             <input type="submit" value="Invoke with MVC Action" />
-                            <button type="button" onclick="return helloService();">Invoke with AJAX</button>
                         }
 
                         @if (@ViewBag.Response != null)
@@ -36,6 +35,11 @@
                     </div>
                     </text>
                 }
+
+                <div>
+                     <button type="button" onclick="return helloService();">Invoke with AJAX</button>
+                </div>
+
             </p>
         </div>
     </section>
@@ -73,7 +77,12 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: { name: "Passed Name" },
-            success: function (data) { alert(data.Result); }
+            success: function (data) { alert(data.Result); },
+            error: function (xhr) {
+                if (xhr.status === 401) {
+                    alert('You should be authenticated to call service.');
+                }
+            }
         });
     }
 </script>
