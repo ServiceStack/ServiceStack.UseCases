@@ -39,8 +39,9 @@ namespace CustomAuthenticationMvc.Helper
             var response = context.Response;
             var request = context.Request;
 
-            if (response.StatusCode == 401 && request.Headers["X-Requested-With"] ==
-              "XMLHttpRequest")
+            if (response.StatusCode == 401 && (request.Headers["X-Requested-With"] == "XMLHttpRequest" 
+                || (request.AcceptTypes != null && request.AcceptTypes.Any(t => string.Compare(t, "application/json", StringComparison.InvariantCulture) == 0)))
+            )
             {
                 SuppressAuthenticationRedirect(context.Context);
             }
