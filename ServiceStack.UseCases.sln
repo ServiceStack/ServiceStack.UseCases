@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "HelloWorld\He
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocoPower", "PocoPower\PocoPower.csproj", "{48FFD57F-2979-4C9C-81EE-2E20CBB76548}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwaggerHelloWorld", "SwaggerHelloWorld\SwaggerHelloWorld.csproj", "{1FBF5020-D7C6-406D-808C-68C471D10286}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,16 @@ Global
 		{48FFD57F-2979-4C9C-81EE-2E20CBB76548}.Release|Mixed Platforms.Build.0 = Release|x86
 		{48FFD57F-2979-4C9C-81EE-2E20CBB76548}.Release|x86.ActiveCfg = Release|x86
 		{48FFD57F-2979-4C9C-81EE-2E20CBB76548}.Release|x86.Build.0 = Release|x86
+		{1FBF5020-D7C6-406D-808C-68C471D10286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FBF5020-D7C6-406D-808C-68C471D10286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FBF5020-D7C6-406D-808C-68C471D10286}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1FBF5020-D7C6-406D-808C-68C471D10286}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1FBF5020-D7C6-406D-808C-68C471D10286}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1FBF5020-D7C6-406D-808C-68C471D10286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FBF5020-D7C6-406D-808C-68C471D10286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FBF5020-D7C6-406D-808C-68C471D10286}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1FBF5020-D7C6-406D-808C-68C471D10286}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1FBF5020-D7C6-406D-808C-68C471D10286}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
