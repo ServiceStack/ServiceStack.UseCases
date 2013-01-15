@@ -32,11 +32,11 @@ namespace CustomAuthenticationMvc.Controllers
 
         public ActionResult RunHelloService()
         {
-            var helloService = AppHostBase.Instance.TryResolve<HelloService>();
+            var helloService = AppHostBase.Resolve<HelloService>();
             helloService.RequestContext = System.Web.HttpContext.Current.ToRequestContext();
-            var authResponse = (HelloResponse)helloService.Any(new HelloRequest { Name = User.Identity.Name });
+            var response = (HelloResponse)helloService.Any(new HelloRequest { Name = User.Identity.Name });
             
-            ViewBag.Response = authResponse.Result;
+            ViewBag.Response = response.Result;
             ViewBag.Counter = ServiceStackSession.Get<int>(HelloService.HelloServiceCounterKey);
             return View("Index");
         }
