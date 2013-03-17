@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using ServiceStack.Common.Utils;
+using ServiceStack.Configuration;
 using ServiceStack.OrmLite;
 using ServiceStack.Redis;
 using ServiceStack.ServiceClient.Web;
@@ -15,15 +15,25 @@ using ServiceStack.Text;
 
 namespace PocoPower
 {
+    public class Config
+    {
+        public string GitHubName { get; set; }
+
+        public string TwitterName { get; set; }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
+            var appSettings = new AppSettings();
+            var config = appSettings.Get("my.config", new Config { GitHubName = "mythz", TwitterName = "ServiceStack" });
+
             var github = new GithubGateway();
-            var repos = github.GetAllUserAndOrgsReposFor("mythz");
+            var repos = github.GetAllUserAndOrgsReposFor(config.GitHubName);
 
             var twitter = new TwitterGateway();
-            var tweets = twitter.GetTimeline("ServiceStack");
+            var tweets = twitter.GetTimeline(config.TwitterName);
 
             "Loaded {0} repos and {1} tweets...".Print(repos.Count, tweets.Count);
 
