@@ -13,10 +13,10 @@ SERVICE_WORKINGDIR=`cd ${DIR}/Service/bin/Release/; pwd`
 $MONO_PREFIX/bin/xbuild Service/Service.sln /p:Configuration=Release /flp:LogFile=msbuild.log
 
 # stop service if needed
+SLOCK=/tmp/service.lock
 if [ -f ${SLOCK} ];
 then
     echo Sopping Service...
-    SLOCK=/tmp/service.lock
     SPID=`cat ${SLOCK}`
     while [ -f ${SLOCK} ] && kill ${SPID}; do
         sleep 0.5
@@ -27,10 +27,8 @@ then
     fi
 fi
 
-#$MONO_PREFIX/bin/mono Service/bin/Release/Service.exe
-
 # run service using port 8090
-$MONO_PREFIX/bin/mono-service -m:service -d:${SERVICE_WORKINGDIR} -l:${SLOCK} ${SERVICE_WORKINGDIR}/Service.exe
+$MONO_PREFIX/bin/mono-service -m:service -d:${SERVICE_WORKINGDIR} -l:${SLOCK} ${SERVICE_WORKINGDIR}/Service.exe &
 
 # run site using port 8080
 cd Site
