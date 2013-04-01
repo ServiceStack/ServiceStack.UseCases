@@ -29,7 +29,7 @@ Press any key to stop program
 
 Then script download `node-modules` for node.js and runs the server for port: `8080`.
 
-That's it, you can see Backbone.JS Todo SPA geared with [ServiceStack](www.servicestack.net): http://localhost:8080 
+That's it, you can see Backbone.JS Todo SPA geared with [ServiceStack](www.servicestack.net): [http://localhost:8080](http://localhost:8080) 
 
 NOTE: Service is actually a Windows Service. So you can also install it with: 
 
@@ -47,4 +47,4 @@ chmod +x ./run
 ./run
 ```
 
-That's it, you can see Backbone.JS Todo SPA geared with [ServiceStack](www.servicestack.net): http://[linux-host]:8080
+That's it, you can see Backbone.JS Todo SPA geared with [ServiceStack](www.servicestack.net): `http://[linux-host]:8080`
