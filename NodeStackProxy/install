@@ -2,11 +2,13 @@
 sudo apt-get install g++ curl libssl-dev apache2-utils
 sudo apt-get install git-core
 
+# install npm
 git clone git://github.com/isaacs/npm.git
 cd npm/scripts
 chmod +x install.sh
 sudo ./install.sh
 
+# install node
 git clone git://github.com/ry/node.git
 cd node
 ./configure

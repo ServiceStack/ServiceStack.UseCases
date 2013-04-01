@@ -1,0 +1,38 @@
+#!/bin/bash
+MONO_PREFIX=/opt/mono-2.11
+export MONO_PATH=$MONO_PREFIX/lib
+export PATH=$MONO_PREFIX/bin:$PATH
+export PKG_CONFIG_PATH=$MONO_PREFIX/lib/pkgconfig
+export LD_LIBRARY_PATH=$MONO_PREFIX/lib
+export MONO_LOG_LEVEL=error
+
+DIR=`cd "$(dirname "$0")"; pwd`
+SERVICE_WORKINGDIR=`cd ${DIR}/Service/bin/Release/; pwd`
+
+# compile
+$MONO_PREFIX/bin/xbuild Service/Service.sln /p:Configuration=Release /flp:LogFile=msbuild.log
+
+# stop service if needed
+if [ -f ${SLOCK} ];
+then
+    echo Sopping Service...
+    SLOCK=/tmp/service.lock
+    SPID=`cat ${SLOCK}`
+    while [ -f ${SLOCK} ] && kill ${SPID}; do
+        sleep 0.5
+    done
+    if [ -f ${SLOCK} ];
+    then
+	rm -f ${SLOCK}
+    fi
+fi
+
+#$MONO_PREFIX/bin/mono Service/bin/Release/Service.exe
+
+# run service using port 8090
+$MONO_PREFIX/bin/mono-service -m:service -d:${SERVICE_WORKINGDIR} -l:${SLOCK} ${SERVICE_WORKINGDIR}/Service.exe
+
+# run site using port 8080
+cd Site
+npm link
+npm start
