@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAuthentication", "CustomAuthentication\CustomAuthentication.csproj", "{54DC9134-DA2C-4905-972E-7C7930517281}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAuthenticationMvc", "CustomAuthenticationMvc\CustomAuthenticationMvc.csproj", "{4FC2AC47-239D-4D0E-AB75-AFDB8ED64084}"
