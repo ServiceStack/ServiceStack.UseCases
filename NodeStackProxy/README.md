@@ -1,8 +1,12 @@
 # Self-hosted ServiceStack + Node.js demo project
 
+The project demonstrates how you can easily build single page applications (SPA) using [node.js](http://nodejs.org/download/) with Express, Jade templates and geared with ServiceStack as a backend API engine. The application works for Windows and Linuxes. To simplify development node.js used a proxy to route all "/api" requests to SericeStack but for heavy loaded sites you can use [nginx](http://wiki.nginx.org/Main). 
+
 ## Instructions
 
-Make sure that [node.js and npm](http://nodejs.org/download/) is installed and path variables are set correctly. Both commands should return version:
+Make sure that [node.js and npm](http://nodejs.org/download/) is installed and path variables are set correctly (`Windows`: install it with `.msi`, `Linux/Mac`: http://howtonode.org/how-to-install-nodejs) 
+
+Both commands should return version:
 
 ```
 node --version
