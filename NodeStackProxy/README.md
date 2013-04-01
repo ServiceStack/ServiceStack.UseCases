@@ -29,7 +29,7 @@ Press any key to stop program
 
 Then script download `node-modules` for node.js and runs the server for port: `8080`.
 
-That's it, you can see Backbone.JS with Todo SPA application geared with ServiceStack. 
+That's it, you can see Backbone.JS Todo SPA geared with [ServiceStack](www.servicestack.net): http://localhost:8080 
 
 NOTE: Service is actually a Windows Service. So you can also install it with: 
 
@@ -40,9 +40,11 @@ installutil <Path of the Service.exe>
 
 ### Linux & mono
 
-[run](https://github.com/ServiceStack/ServiceStack.UseCases/blob/master/NodeStackProxy/run) script automatically compiles Service.sln file using `xbuild`. Then it tries to shutdown the previous Service process and run it again. When service is up and running, it downloads all required `node-modules` and run node.js app server using port: `8080`.
+[run](https://github.com/ServiceStack/ServiceStack.UseCases/blob/master/NodeStackProxy/run) script automatically compiles Service.sln file using `xbuild`. Then it tries to shutdown the previous Service process and run it again. When service is up and running, it downloads all required `node-modules` and runs `node.js` app server using port: `8080`.
 
 ```
 chmod +x ./run
 ./run
 ```
+
+That's it, you can see Backbone.JS Todo SPA geared with [ServiceStack](www.servicestack.net): http://[linux-host]:8080
