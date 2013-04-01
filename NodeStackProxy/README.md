@@ -4,7 +4,7 @@ The project demonstrates how you can easily build single page applications (SPA)
 
 ## Instructions
 
-Make sure that [node.js and npm](http://nodejs.org/download/) is installed and path variables are set correctly (`Windows`: install it with `.msi`, `Linux/Mac`: http://howtonode.org/how-to-install-nodejs) 
+Make sure that [node.js and npm](http://nodejs.org/download/) is installed and path variables are set correctly (`Windows`: install it with `.msi`, `Linux/Mac`: use [install](https://github.com/ServiceStack/ServiceStack.UseCases/blob/master/NodeStackProxy/install) script or read [how-to-install-nodejs](http://howtonode.org/how-to-install-nodejs) )
 
 Both commands should return version:
 
@@ -27,9 +27,22 @@ Listening: http://*:8090/api/
 Press any key to stop program
 ```
 
-Then script download `node-modules` for node.js and runs the server for port: `8080`. 
+Then script download `node-modules` for node.js and runs the server for port: `8080`.
 
 That's it, you can see Backbone.JS with Todo SPA application geared with ServiceStack. 
 
+NOTE: Service is actually a Windows Service. So you can also install it with: 
+
+```
+installutil <Path of the Service.exe>
+```
+
+
 ### Linux & mono
 
+[run](https://github.com/ServiceStack/ServiceStack.UseCases/blob/master/NodeStackProxy/run) script automatically compiles Service.sln file using `xbuild`. Then it tries to shutdown the previous Service process and run it again. When service is up and running, it downloads all required `node-modules` and run node.js app server using port: `8080`.
+
+```
+chmod +x ./run
+./run
+```
