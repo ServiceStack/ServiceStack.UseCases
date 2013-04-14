@@ -168,13 +168,11 @@ namespace ImageResizer
                     g.PixelOffsetMode = PixelOffsetMode.HighQuality;
                     g.DrawImage(Image, new Rectangle(0, 0, newWidth, newHeight), startX, startY, newWidth, newHeight, GraphicsUnit.Pixel);
 
-                    using (var ms = new MemoryStream())
-                    {
-                        bmp.Save(ms, ImageFormat.Png);
-                        Image.Dispose();
-                        var outimage = Image.FromStream(ms);
-                        return outimage;
-                    }
+                    var ms = new MemoryStream();
+                    bmp.Save(ms, ImageFormat.Png);
+                    Image.Dispose();
+                    var outimage = Image.FromStream(ms);
+                    return outimage;
                 }
             }
         }
