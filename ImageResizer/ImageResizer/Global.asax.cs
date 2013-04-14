@@ -34,6 +34,9 @@ namespace ImageResizer
         public string Size { get; set; }
     }
 
+    [Route("/reset")]
+    public class Reset { }
+
     public class ImageService : Service
     {
         const int ThumbnailSize = 100;
@@ -174,6 +177,13 @@ namespace ImageResizer
                     }
                 }
             }
+        }
+
+        public object Any(Reset request)
+        {
+            Directory.GetFiles(UploadsDir).ToList().ForEach(File.Delete);
+            Directory.GetFiles(ThumbnailsDir).ToList().ForEach(File.Delete);
+            return HttpResult.Redirect("/");
         }
     }
 

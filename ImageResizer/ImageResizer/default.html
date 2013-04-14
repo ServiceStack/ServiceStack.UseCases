@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Image Resizer</title>
+    <link href="http://mythz.servicestack.net/favicon.png" rel="icon">
     <style type="text/css">
         body {
             font-family: 'Droid Sans', sans-serif;
@@ -25,7 +26,7 @@
         #thumbnails {
             padding: 20px 0 0 0;
         }
-        img {
+        table img {
             margin: 5px;
             padding: 5px;
             background: #fff;
@@ -42,10 +43,22 @@
             box-shadow: 1px 4px 10px #aaa;
             cursor: pointer;
         }
+        .links {
+            position: absolute;
+            top: 0;
+            right: 10px;
+        }
     </style>
 </head>
 <body>
+    <p class="links">
+        <a href="https://github.com/ServiceStack/ServiceStack.UseCases/blob/master/ImageResizer/ImageResizer/Global.asax.cs">1 Page C#</a> /
+        <a href="https://github.com/ServiceStack/ServiceStack.UseCases/blob/master/ImageResizer/ImageResizer/default.html">1 HTML</a> 
+        <a href="http://www.servicestack.net"><img src="http://mythz.servicestack.net/favicon.png" title="ServiceStack" height="16" align="absmiddle" /></a>
+    </p>
+
     <h1>Image Resizer</h1>
+
     <table><tr>
     <td>
         <form action="upload" method="POST" enctype="multipart/form-data">
