@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageResizer", "ImageResizer\ImageResizer.csproj", "{6F4EF73A-7D66-4BA6-9708-8C49DBCDE229}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageResizer", "ImageResizer.csproj", "{6F4EF73A-7D66-4BA6-9708-8C49DBCDE229}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
