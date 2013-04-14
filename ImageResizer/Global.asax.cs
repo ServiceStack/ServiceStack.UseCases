@@ -85,7 +85,7 @@ namespace ImageResizer
             }
         }
 
-        [AddHeader(ContentType = "image/jpg")]
+        [AddHeader(ContentType = "image/png")]
         public object Get(Resize request)
         {
             var imagePath = UploadsDir.CombineWith(request.Id + ".png");
