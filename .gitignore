@@ -39,3 +39,4 @@ release/*
 *.dotCover
 packages/*
 node-modules/*
+uploads/*

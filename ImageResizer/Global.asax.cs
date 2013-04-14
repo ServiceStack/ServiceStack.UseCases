@@ -42,7 +42,7 @@ namespace ImageResizer
         const int ThumbnailSize = 100;
         readonly string UploadsDir = "~/uploads".MapHostAbsolutePath();
         readonly string ThumbnailsDir = "~/uploads/thumbnails".MapHostAbsolutePath();
-
+        
         public object Get(Images request)
         {
             return Directory.GetFiles(UploadsDir).SafeConvertAll(x => x.SplitOnLast(Path.DirectorySeparatorChar).Last());
@@ -179,8 +179,15 @@ namespace ImageResizer
 
         public object Any(Reset request)
         {
+            if (!Directory.Exists(UploadsDir))
+                Directory.CreateDirectory(UploadsDir);
+            if (!Directory.Exists(ThumbnailsDir))
+                Directory.CreateDirectory(ThumbnailsDir);
+
             Directory.GetFiles(UploadsDir).ToList().ForEach(File.Delete);
-            Directory.GetFiles(ThumbnailsDir).ToList().ForEach(File.Delete);
+            Directory.GetFiles(ThumbnailsDir).ToList().ForEach(File.Delete);            
+            File.ReadAllLines("~/preset-urls.txt".MapHostAbsolutePath()).ToList()
+                .ForEach(url => WriteImage(new MemoryStream(url.Trim().GetBytesFromUrl())));
             return HttpResult.Redirect("/");
         }
     }
