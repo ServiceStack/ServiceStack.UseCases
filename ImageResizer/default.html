@@ -107,7 +107,7 @@
         for (var size in resolutions) {
             var wh = size.split('x');
             html.push("<h3>" + size + " - " + resolutions[size] + "</h3>");
-            html.push("<img src='resize/" + id + "?size=" + size + "' width='" + wh[0] + "' height='" + wh[1] + "' />");
+            html.push("<img src='uploads/" + size + "/" + id + ".png' width='" + wh[0] + "' height='" + wh[1] + "' />");
         }
         html.push("<h2>Original Size</h2>");
         html.push("<img src='uploads/" + id + ".png' />");        
