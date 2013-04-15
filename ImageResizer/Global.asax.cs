@@ -100,7 +100,6 @@ namespace ImageResizer
             using (var stream = File.OpenRead(imagePath))
             using (var img = Image.FromStream(stream))
             {
-
                 var parts = request.Size == null ? null : request.Size.Split('x');
                 int width = img.Width;
                 int height = img.Height;
@@ -133,7 +132,6 @@ namespace ImageResizer
                 var ratioX = (double)newWidth / img.Width;
                 var ratioY = (double)newHeight / img.Height;
                 var ratio = Math.Max(ratioX, ratioY);
-
                 var width = (int)(img.Width * ratio);
                 var height = (int)(img.Height * ratio);
 
