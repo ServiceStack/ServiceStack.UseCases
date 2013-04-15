@@ -185,7 +185,9 @@ namespace ImageResizer
         public object Any(Reset request)
         {
             Directory.GetFiles(AssertDir(UploadsDir)).ToList().ForEach(File.Delete);
-            Directory.GetFiles(AssertDir(ThumbnailsDir)).ToList().ForEach(File.Delete);            
+            Directory.GetFiles(AssertDir(ThumbnailsDir)).ToList().ForEach(File.Delete);
+            ImageSizes.ForEach(x => 
+                Directory.GetFiles(AssertDir(UploadsDir.CombineWith(x))).ToList().ForEach(File.Delete));
             File.ReadAllLines("~/preset-urls.txt".MapHostAbsolutePath()).ToList()
                 .ForEach(url => WriteImage(new MemoryStream(url.Trim().GetBytesFromUrl())));
 
