@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -42,7 +43,8 @@ namespace ImageResizer
         const int ThumbnailSize = 100;
         readonly string UploadsDir = "~/uploads".MapHostAbsolutePath();
         readonly string ThumbnailsDir = "~/uploads/thumbnails".MapHostAbsolutePath();
-        
+        readonly List<string> ImageSizes = new[] { "320x480", "640x960", "640x1136", "768x1024", "1536x2048" }.ToList();
+
         public object Get(Images request)
         {
             return Directory.GetFiles(UploadsDir).SafeConvertAll(x => x.SplitOnLast(Path.DirectorySeparatorChar).Last());
@@ -79,14 +81,17 @@ namespace ImageResizer
             using (var img = Image.FromStream(ms))
             {
                 img.Save(UploadsDir.CombineWith(fileName));
-
                 var stream = Resize(img, ThumbnailSize, ThumbnailSize);
                 File.WriteAllBytes(ThumbnailsDir.CombineWith(fileName), stream.ReadFully());
+                
+                ImageSizes.ForEach(x => File.WriteAllBytes(
+                    AssertDir(UploadsDir.CombineWith(x)).CombineWith(hash + ".png"), 
+                    Get(new Resize { Id = hash, Size = x }).ReadFully()));
             }
         }
 
         [AddHeader(ContentType = "image/png")]
-        public object Get(Resize request)
+        public Stream Get(Resize request)
         {
             var imagePath = UploadsDir.CombineWith(request.Id + ".png");
             if (request.Id == null || !File.Exists(imagePath))
@@ -179,16 +184,19 @@ namespace ImageResizer
 
         public object Any(Reset request)
         {
-            if (!Directory.Exists(UploadsDir))
-                Directory.CreateDirectory(UploadsDir);
-            if (!Directory.Exists(ThumbnailsDir))
-                Directory.CreateDirectory(ThumbnailsDir);
-
-            Directory.GetFiles(UploadsDir).ToList().ForEach(File.Delete);
-            Directory.GetFiles(ThumbnailsDir).ToList().ForEach(File.Delete);            
+            Directory.GetFiles(AssertDir(UploadsDir)).ToList().ForEach(File.Delete);
+            Directory.GetFiles(AssertDir(ThumbnailsDir)).ToList().ForEach(File.Delete);            
             File.ReadAllLines("~/preset-urls.txt".MapHostAbsolutePath()).ToList()
                 .ForEach(url => WriteImage(new MemoryStream(url.Trim().GetBytesFromUrl())));
+
             return HttpResult.Redirect("/");
+        }
+
+        private static string AssertDir(string dirPath)
+        {
+            if (!Directory.Exists(dirPath))
+                Directory.CreateDirectory(dirPath);
+            return dirPath;
         }
     }
 
