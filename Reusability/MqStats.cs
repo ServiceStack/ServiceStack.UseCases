@@ -3,13 +3,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using ServiceStack.Common;
+using ServiceStack;
 using ServiceStack.Messaging;
 using ServiceStack.Redis;
-using ServiceStack.Redis.Messaging;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
-using ServiceStack.ServiceInterface.ServiceModel;
 using ServiceStack.Text;
 
 namespace Reusability
@@ -27,10 +23,10 @@ namespace Reusability
         public string MqServiceStatus { get; set; }
         public object MqServiceStats { get; set; }
 
-        public int InQ { get; set; }
-        public int PriorityQ { get; set; }
-        public int OutQ { get; set; }
-        public int DlQ { get; set; }
+        public long InQ { get; set; }
+        public long PriorityQ { get; set; }
+        public long OutQ { get; set; }
+        public long DlQ { get; set; }
 
         public List<MessageStat> Results { get; set; }
 
@@ -43,7 +39,7 @@ namespace Reusability
         public string MqName { get; set; }
         public string MqType { get; set; }
         public string MessageType { get; set; }
-        public int Count { get; set; }
+        public long Count { get; set; }
         public DateTime? FirstPublishedAt { get; set; }
         public DateTime? LastPublishedAt { get; set; }
         public string Error { get; set; }
@@ -138,10 +134,7 @@ namespace Reusability
                     redisMqStats.Add(stat);
                 }
 
-                var handlerMap = (Dictionary<Type, IMessageHandlerFactory>)typeof(RedisMqServer).GetField(
-                    "handlerMap", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(MessagesService);
-
-                var activeMqs = new HashSet<string>(handlerMap.Keys.Select(x => x.Name), StringComparer.InvariantCultureIgnoreCase);
+                var activeMqs = new HashSet<string>(MessagesService.RegisteredTypes.Select(x => x.Name), StringComparer.InvariantCultureIgnoreCase);
                 var response = new MqStatsResponse
                 {
                     ActiveMqServices = activeMqs.OrderBy(x => x).ToList(),

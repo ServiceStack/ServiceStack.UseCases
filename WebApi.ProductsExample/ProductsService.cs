@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using ServiceStack.Common.Web;
-using ServiceStack.ServiceHost;
+using ServiceStack;
 
 namespace WebApi.ProductsExample
 {

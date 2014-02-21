@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using ServiceStack.ServiceClient.Web;
+using ServiceStack;
 using ServiceStack.Text;
 
 namespace Reusability

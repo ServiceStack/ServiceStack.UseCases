@@ -5,15 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using ServiceStack.Common.Web;
+using ServiceStack;
+using ServiceStack.Auth;
 using ServiceStack.DataAnnotations;
 using ServiceStack.Messaging;
 using ServiceStack.OrmLite;
-using ServiceStack.ServiceClient.Web;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
-using ServiceStack.ServiceInterface.Auth;
-using ServiceStack.ServiceInterface.ServiceModel;
 using ServiceStack.Text;
 
 namespace Reusability
@@ -129,10 +125,8 @@ namespace Reusability
         public string Body { get; set; }
     }
 
-    public class EmailProvider
+    public class EmailProvider : RepositoryBase
     {
-        public IDbConnectionFactory DbFactory { get; set; }
-
         public List<SMessageReceipt> Send(SMessage request)
         {
             return Process(CreateMessages(request).ToArray());
@@ -140,12 +134,13 @@ namespace Reusability
 
         public List<EmailMessage> CreateMessages(SMessage request)
         {
-            return DbFactory.Run(db => db.Select<EmailRegistration>()
-                .ConvertAll(registration => new EmailMessage {
-                    To = registration.Email,
-                    Subject = request.Subject,
-                    Body = request.Body,
-                }));
+            return Db.Select<EmailRegistration>()
+            .ConvertAll(registration => new EmailMessage
+            {
+                To = registration.Email,
+                Subject = request.Subject,
+                Body = request.Body,
+            });
         }
 
         public List<SMessageReceipt> Process(params EmailMessage[] messages)
@@ -179,11 +174,9 @@ namespace Reusability
         public Dictionary<string, string> Params { get; set; }
     }
 
-    public class FacebookGateway
+    public class FacebookGateway : RepositoryBase
     {
         private static int id;
-
-        public IDbConnectionFactory DbFactory { get; set; }
 
         public List<SMessageReceipt> Send(SMessage request)
         {
@@ -201,13 +194,14 @@ namespace Reusability
 
         public List<CallFacebook> CreateMessages(SMessage request)
         {
-            return DbFactory.Run(db => db.Select<UserOAuthProvider>(q => q.Provider == "facebook")
-                .ConvertAll(facebook => new CallFacebook {
+            return Db.Select<UserAuthDetails>(q => q.Provider == "facebook")
+                .ConvertAll(facebook => new CallFacebook
+                {
                     UserName = facebook.UserName,
                     AuthToken = facebook.AccessTokenSecret,
                     Method = "users.setStatus",
                     Params = { { "status", request.Body } }
-                }));
+                });
         }
 
         public List<SMessageReceipt> Process(params CallFacebook[] messages)
@@ -240,11 +234,9 @@ namespace Reusability
         public string Status { get; set; }
     }
 
-    public class TwitterGateway
+    public class TwitterGateway : RepositoryBase
     {
         private static int id;
-
-        public IDbConnectionFactory DbFactory { get; set; }
 
         public List<SMessageReceipt> Send(SMessage request)
         {
@@ -253,13 +245,13 @@ namespace Reusability
 
         public List<PostStatusTwitter> CreateMessages(SMessage request)
         {
-            return DbFactory.Run(db => db.Select<UserOAuthProvider>(q => q.Provider == "twitter")
+            return Db.Select<UserAuthDetails>(q => q.Provider == "twitter")
                 .ConvertAll(twitter => new PostStatusTwitter {
                     ScreenName = twitter.UserName,
                     AccessToken = twitter.AccessToken,
                     AccessTokenSecret = twitter.AccessTokenSecret,
                     Status = request.Body,
-                }));
+                });
         }
 
         public List<SMessageReceipt> Process(params PostStatusTwitter[] messages)
@@ -289,13 +281,13 @@ namespace Reusability
             return results;
         }
 
-        public static string PostToUrl(string url, string accessToken, string accessTokenSecret, Dictionary<string, string> args, string acceptType = ContentType.Json)
+        public static string PostToUrl(string url, string accessToken, string accessTokenSecret, Dictionary<string, string> args, string acceptType = MimeTypes.Json)
         {
-            var oAuthProvider = (OAuthProvider)AuthService.GetAuthProvider("twitter");
+            var oAuthProvider = (OAuthProvider)AuthenticateService.GetAuthProvider("twitter");
             var uri = new Uri(url);
             var webReq = (HttpWebRequest)WebRequest.Create(uri);
             webReq.Accept = acceptType;
-            webReq.Method = HttpMethod.Post;
+            webReq.Method = HttpMethods.Post;
 
             string data = null;
             if (args != null)
@@ -315,13 +307,13 @@ namespace Reusability
 
             if (data != null)
             {
-                webReq.ContentType = ContentType.FormUrlEncoded;
+                webReq.ContentType = MimeTypes.FormUrlEncoded;
                 using (var writer = new StreamWriter(webReq.GetRequestStream()))
                     writer.Write(data);
             }
 
             using (var webRes = webReq.GetResponse())
-                return webRes.DownloadText();
+                return webRes.ReadToEnd();
         }
 
     }

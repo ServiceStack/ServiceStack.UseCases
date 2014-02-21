@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using ServiceStack.ServiceClient.Web;
-using ServiceStack.ServiceInterface;
-using ServiceStack.ServiceInterface.Auth;
+using ServiceStack;
+using ServiceStack.Web;
 
 namespace CustomAuthentication
 {
@@ -22,13 +16,14 @@ namespace CustomAuthentication
         {
             var baseUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/api";
             var client = new JsonServiceClient(baseUrl);
-            var authResponse = client.Post<AuthResponse>("/auth", new Auth
-                            {
-                                UserName = tbUser.Text,
-                                Password = tbPassword.Text
-                            });
-            var response = HttpContext.Current.Response.ToResponse();
-            response.Cookies.AddSessionCookie(SessionFeature.SessionId, authResponse.SessionId);
+            var authResponse = client.Post<AuthenticateResponse>("/auth", new Authenticate
+                {
+                    UserName = tbUser.Text,
+                    Password = tbPassword.Text
+                });
+
+            var requestContxt = HttpContext.Current.ToRequest();
+            ((IHttpResponse)requestContxt.Response).Cookies.AddSessionCookie(SessionFeature.SessionId, authResponse.SessionId);
 
             phAuthenticated.Visible = true;
         }

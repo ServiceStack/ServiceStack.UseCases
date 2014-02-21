@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using ServiceStack;
 using ServiceStack.Configuration;
 using ServiceStack.OrmLite;
 using ServiceStack.Redis;
-using ServiceStack.ServiceClient.Web;
-using ServiceStack.ServiceInterface;
 using ServiceStack.Text;
 
 //Stand-alone Pre-Req: 
@@ -86,7 +85,7 @@ namespace PocoPower
             if (!string.IsNullOrEmpty(maxId))
                 url = url.AddQueryParam("max_id", maxId);
 
-            var json = url.DownloadJsonFromUrl();
+            var json = url.GetJsonFromUrl();
             var tweets = json.FromJson<List<Tweet>>();
 
             return tweets;

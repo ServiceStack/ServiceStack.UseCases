@@ -1,19 +1,17 @@
 ﻿using System;
 using Funq;
-using ServiceStack.Common.Utils;
+using ServiceStack;
+using ServiceStack.Auth;
 using ServiceStack.Configuration;
+using ServiceStack.Data;
 using ServiceStack.DataAnnotations;
 using ServiceStack.Messaging;
+using ServiceStack.Messaging.Redis;
 using ServiceStack.MiniProfiler;
 using ServiceStack.MiniProfiler.Data;
 using ServiceStack.OrmLite;
 using ServiceStack.Razor;
 using ServiceStack.Redis;
-using ServiceStack.Redis.Messaging;
-using ServiceStack.ServiceInterface;
-using ServiceStack.ServiceInterface.Admin;
-using ServiceStack.ServiceInterface.Auth;
-using ServiceStack.WebHost.Endpoints;
 
 namespace Reusability
 {
@@ -56,12 +54,12 @@ namespace Reusability
                     });
 
             //Store User Data into above OrmLite database
-            container.Register<IUserAuthRepository>(c => 
+            container.Register<IAuthRepository>(c => 
                 new OrmLiteAuthRepository(c.Resolve<IDbConnectionFactory>()));
 
             //If using and RDBMS to persist UserAuth, we must create required tables
-            var authRepo = (OrmLiteAuthRepository)container.Resolve<IUserAuthRepository>();
-            authRepo.CreateMissingTables();
+            var authRepo = container.Resolve<IAuthRepository>();
+            authRepo.InitSchema();
 
             //Register MQ Service
             var mqService = new RedisMqServer(container.Resolve<IRedisClientsManager>());
@@ -77,17 +75,18 @@ namespace Reusability
 
             if (appSettings.Get("ResetAllOnStartUp", false))
             {
-                ResetAll(container, authRepo);
+                ResetAll(container, (OrmLiteAuthRepository)authRepo);
             }
         }
 
         private static void ResetAll(Container container, OrmLiteAuthRepository authRepo)
         {
             authRepo.DropAndReCreateTables();
-            container.Resolve<IDbConnectionFactory>().Run(db => {
+            using (var db = container.Resolve<IDbConnectionFactory>().Open())
+            {
                 db.DropAndCreateTable<EmailRegistration>();
                 db.DropAndCreateTable<SMessageReceipt>();
-            });
+            }
             container.Resolve<IRedisClientsManager>().Exec(r => r.FlushAll());
         }
     }

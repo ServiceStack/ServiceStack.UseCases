@@ -1,7 +1,7 @@
 ﻿using System;
 using Funq;
+using ServiceStack;
 using ServiceStack.MiniProfiler;
-using ServiceStack.WebHost.Endpoints;
 
 namespace WebApi.ProductsExample
 {

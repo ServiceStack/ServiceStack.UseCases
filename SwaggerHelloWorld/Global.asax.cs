@@ -1,15 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Runtime.Serialization;
+using ServiceStack;
 using ServiceStack.Api.Swagger;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
-using ServiceStack.ServiceInterface.Cors;
 using ServiceStack.Text;
-using ServiceStack.WebHost.Endpoints;
 using Container = Funq.Container;
 
 namespace HelloWorld

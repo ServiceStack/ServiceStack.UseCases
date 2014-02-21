@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Collections.Generic;
 using Funq;
-using ServiceStack.CacheAccess;
-using ServiceStack.CacheAccess.Providers;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
-using ServiceStack.ServiceInterface.Auth;
-using ServiceStack.WebHost.Endpoints;
+using ServiceStack;
+using ServiceStack.Auth;
+using ServiceStack.Configuration;
 
 namespace CustomAuthentication.App_Code
 {
@@ -17,9 +12,6 @@ namespace CustomAuthentication.App_Code
 
         public override void Configure(Container container)
         {
-            // register storage for user sessions 
-            container.Register<ICacheClient>(new MemoryCacheClient());
-
             // Register AuthFeature with custom user session and custom auth provider
             Plugins.Add(new AuthFeature(
                 () => new CustomUserSession(), 
