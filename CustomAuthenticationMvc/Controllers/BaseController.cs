@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using CustomAuthenticationMvc.App_Start;
-using ServiceStack.CacheAccess;
-using ServiceStack.ServiceClient.Web;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
-using ServiceStack.WebHost.Endpoints;
+﻿using System.Web.Mvc;
+using ServiceStack;
+using ServiceStack.Caching;
 
 namespace CustomAuthenticationMvc.Controllers
 {
@@ -22,7 +14,7 @@ namespace CustomAuthenticationMvc.Controllers
         {
             get
             {
-                return _serviceStackSession ?? (_serviceStackSession = AppHostBase.Resolve<ISessionFactory>().GetOrCreateSession());
+                return _serviceStackSession ?? (_serviceStackSession = HostContext.Resolve<ISessionFactory>().GetOrCreateSession());
             }
         }
     }

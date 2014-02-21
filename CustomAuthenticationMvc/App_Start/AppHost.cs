@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Security;
 using Funq;
-using ServiceStack.CacheAccess;
-using ServiceStack.CacheAccess.Providers;
-using ServiceStack.Redis;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
-using ServiceStack.ServiceInterface.Auth;
-using ServiceStack.WebHost.Endpoints;
+using ServiceStack;
+using ServiceStack.Auth;
+using ServiceStack.Caching;
+using ServiceStack.Configuration;
 
 namespace CustomAuthenticationMvc.App_Start
 {
@@ -79,7 +73,7 @@ namespace CustomAuthenticationMvc.App_Start
 
         public object Any(HelloRequest request)
         {
-            Session.Set(HelloServiceCounterKey, Session.Get<int>(HelloServiceCounterKey) + 1);
+            SessionBag.Set(HelloServiceCounterKey, SessionBag.Get<int>(HelloServiceCounterKey) + 1);
             var userSession = SessionAs<CustomUserSession>();
             var roles = string.Join(", ", userSession.Roles.ToArray());
             return new HelloResponse { Result = "Hello, " + request.Name + ", your role(s): " + roles};
