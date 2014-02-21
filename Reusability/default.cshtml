@@ -1,10 +1,10 @@
-﻿@using ServiceStack.ServiceInterface.Auth
+﻿@using ServiceStack.Auth
 @{
-    var userSession = base.GetSession<CustomSession>();
-    if (base.Request.HttpMethod == "POST")
+    var userSession = base.SessionAs<CustomSession>();
+    if (base.Request.Verb == "POST")
     {
         var email = base.Request.FormData["email"];
-        if (!string.IsNullOrEmpty(email) && Db.IdOrDefault<EmailRegistration>(email) == null)
+        if (!string.IsNullOrEmpty(email) && Db.SingleById<EmailRegistration>(email) == null)
         {
             Db.Insert(new EmailRegistration { Email = email });
         }
@@ -57,7 +57,7 @@
         <h4>/email</h4>
         <form action="/email" method="GET" target="smessage">
             <dl>
-                <dd><input name="To" type="text" placeholder="To" value="demis.bellot+1@@gmail.com" /></dd>
+                <dd><input name="To" type="text" placeholder="To" value="demis.bellot+1@gmail.com" /></dd>
                 <dd><input name="Subject" type="text" placeholder="Subject" value="Email Message Only" /></dd>
                 <dd>
                     <textarea name="Body" placeholder="Message Body"></textarea>
@@ -86,7 +86,7 @@
 
     <h2>Posting to Twitter streams</h2>
     <ul>
-        @foreach (var twAuth in Db.Select<UserOAuthProvider>(q => q.Provider == "twitter"))
+        @foreach (var twAuth in Db.Select<UserAuthDetails>(q => q.Provider == "twitter"))
         {
             <li><a href="http://twitter.com/@twAuth.UserName">@@@twAuth.UserName</a></li>
         }
@@ -103,7 +103,7 @@
     
     <h2>Posting to Facebook walls</h2>
     <ul>
-        @foreach (var fbAuth in Db.Select<UserOAuthProvider>(q => q.Provider == "facebook"))
+        @foreach (var fbAuth in Db.Select<UserAuthDetails>(q => q.Provider == "facebook"))
         {
             <li><a href="http://www.facebook.com/@fbAuth.UserName">@fbAuth.UserName</a></li>
         }

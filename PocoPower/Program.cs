@@ -72,23 +72,32 @@ namespace PocoPower
 
     public class TwitterGateway
     {
-        public const string UserTimelineUrl   = "http://api.twitter.com/1/statuses/user_timeline.json?screen_name={0}";
+        public const string UserTimelineUrl = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name={0}";
 
         public List<Tweet> GetTimeline(string screenName, string sinceId = null, string maxId = null, int? take = null)
         {
-            if (screenName == null)
-                throw new ArgumentNullException("screenName");
+            try
+            {
+                if (screenName == null)
+                    throw new ArgumentNullException("screenName");
 
-            var url =  UserTimelineUrl.Fmt(screenName).AddQueryParam("count", take.GetValueOrDefault(100));
-            if (!string.IsNullOrEmpty(sinceId))
-                url = url.AddQueryParam("since_id", sinceId);
-            if (!string.IsNullOrEmpty(maxId))
-                url = url.AddQueryParam("max_id", maxId);
+                var url = UserTimelineUrl.Fmt(screenName).AddQueryParam("count", take.GetValueOrDefault(100));
+                if (!string.IsNullOrEmpty(sinceId))
+                    url = url.AddQueryParam("since_id", sinceId);
+                if (!string.IsNullOrEmpty(maxId))
+                    url = url.AddQueryParam("max_id", maxId);
 
-            var json = url.GetJsonFromUrl();
-            var tweets = json.FromJson<List<Tweet>>();
+                var json = url.GetJsonFromUrl();
+                var tweets = json.FromJson<List<Tweet>>();
 
-            return tweets;
+                return tweets;
+
+            }
+            catch (Exception)
+            {
+                "Twitter no longer allows public feeds".Print();
+                return new List<Tweet>();
+            }
         }
     }
 
@@ -155,7 +164,7 @@ namespace PocoPower
         public T GetJson<T>(string route, params object[] routeArgs)
         {
             return GithubApiBaseUrl.AppendPath(route.Fmt(routeArgs))
-                .GetJsonFromUrl()
+                .GetJsonFromUrl(req => req.UserAgent = "ServiceStack Poco/Power")
                 .FromJson<T>();
         }
 
