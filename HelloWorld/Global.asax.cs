@@ -35,6 +35,9 @@ namespace HelloWorld
         public string Name { get; set; }
     }
 
+    [Route("/hellofile")]
+    public class HelloFile { }
+
     [Route("/helloimage/{Name}")]
     public class HelloImage
     {
@@ -61,9 +64,20 @@ namespace HelloWorld
     //Implementation
     public class HelloService : Service
     {
+        [AddHeader(ContentType = MimeTypes.Html)]
         public object Get(HelloHtml request)
         {
-            return "<h1>Hello, {0}!</h1>".Fmt(request.Name);
+            return "<h1>Hello, HTML!</h1>"
+               + "<div><a href='{0}'>Hello File</a></div>".Fmt(new HelloFile().ToGetUrl())
+               + "<div><a href='{0}'>Hello Image</a></div>".Fmt(new HelloImage
+               {
+                   Name = "World",
+                   Background = "Blue",
+                   Foreground = "Yellow",
+                   FontSize = 48,
+                   Height = 600,
+                   Width = 800,
+               }.ToGetUrl());
         }
 
         [AddHeader(ContentType = "text/plain")]
@@ -72,7 +86,12 @@ namespace HelloWorld
             return "<h1>Hello, {0}!</h1>".Fmt(request.Name);
         }
 
-        [AddHeader(ContentType = "image/png")]
+        public object Get(HelloFile request)
+        {
+            byte[] imageBytes = "https://www.google.com/images/srpr/logo11w.png".GetBytesFromUrl();
+            return new HttpResult(imageBytes, "image/png");
+        }
+
         public object Get(HelloImage request)
         {
             var width = request.Width.GetValueOrDefault(640);
@@ -90,12 +109,15 @@ namespace HelloWorld
                 var drawBrush = new SolidBrush(fgColor);
                 var drawRect = new RectangleF(0, 0, width, height);
 
-                var drawFormat = new StringFormat {
+                var drawFormat = new StringFormat
+                {
                     LineAlignment = StringAlignment.Center,
-                    Alignment = StringAlignment.Center };
+                    Alignment = StringAlignment.Center
+                };
 
                 g.DrawString(drawString, drawFont, drawBrush, drawRect, drawFormat);
 
+                base.Response.ContentType = "image/png";
                 var ms = new MemoryStream();
                 image.Save(ms, ImageFormat.Png);
                 return ms;
