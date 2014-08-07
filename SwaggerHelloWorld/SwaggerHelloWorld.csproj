@@ -46,28 +46,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="ServiceStack, Version=4.0.11.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack, Version=4.0.25.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ServiceStack.4.0.11\lib\net40\ServiceStack.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.4.0.25\lib\net40\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Api.Swagger, Version=4.0.11.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Api.Swagger, Version=4.0.25.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ServiceStack.Api.Swagger.4.0.11\lib\net40\ServiceStack.Api.Swagger.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Api.Swagger.4.0.25\lib\net40\ServiceStack.Api.Swagger.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Client">
-      <HintPath>..\packages\ServiceStack.Client.4.0.11\lib\net40\ServiceStack.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Common, Version=4.0.11.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Client, Version=4.0.25.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ServiceStack.Common.4.0.11\lib\net40\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Client.4.0.25\lib\net40\ServiceStack.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=4.0.25.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ServiceStack.Common.4.0.25\lib\net40\ServiceStack.Common.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ServiceStack.Interfaces.4.0.11\lib\net40\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Interfaces.4.0.25\lib\net40\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=4.0.11.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=4.0.25.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ServiceStack.Text.4.0.11\lib\net40\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Text.4.0.25\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -89,26 +90,6 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="README.txt" />
-    <Content Include="swagger-ui\css\highlight.default.css" />
-    <Content Include="swagger-ui\css\screen.css" />
-    <Content Include="swagger-ui\images\logo_small.png" />
-    <Content Include="swagger-ui\images\pet_store_api.png" />
-    <Content Include="swagger-ui\images\throbber.gif" />
-    <Content Include="swagger-ui\images\wordnik_api.png" />
-    <Content Include="swagger-ui\index.html" />
-    <Content Include="swagger-ui\lib\backbone-min.js" />
-    <Content Include="swagger-ui\lib\handlebars-1.0.0.js" />
-    <Content Include="swagger-ui\lib\highlight.7.3.pack.js" />
-    <Content Include="swagger-ui\lib\jquery-1.8.0.min.js" />
-    <Content Include="swagger-ui\lib\jquery.ba-bbq.min.js" />
-    <Content Include="swagger-ui\lib\jquery.slideto.min.js" />
-    <Content Include="swagger-ui\lib\jquery.wiggle.min.js" />
-    <Content Include="swagger-ui\lib\shred.bundle.js" />
-    <Content Include="swagger-ui\lib\shred\content.js" />
-    <Content Include="swagger-ui\lib\swagger.js" />
-    <Content Include="swagger-ui\lib\underscore-min.js" />
-    <Content Include="swagger-ui\swagger-ui.js" />
-    <Content Include="swagger-ui\swagger-ui.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
