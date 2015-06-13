@@ -6,13 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Funq;
-using ServiceStack.Common;
-using ServiceStack.Common.Utils;
-using ServiceStack.Common.Web;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
-using ServiceStack.Text;
-using ServiceStack.WebHost.Endpoints;
+using ServiceStack;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -47,7 +41,7 @@ namespace ImageResizer
 
         public object Get(Images request)
         {
-            return Directory.GetFiles(UploadsDir).SafeConvertAll(x => x.SplitOnLast(Path.DirectorySeparatorChar).Last());
+            return Directory.GetFiles(UploadsDir).Map(x => x.SplitOnLast(Path.DirectorySeparatorChar).Last());
         }
 
         public object Post(Upload request)
@@ -60,7 +54,7 @@ namespace ImageResizer
                 }
             }
 
-            foreach (var uploadedFile in RequestContext.Files.Where(uploadedFile => uploadedFile.ContentLength > 0))
+            foreach (var uploadedFile in Request.Files.Where(uploadedFile => uploadedFile.ContentLength > 0))
             {
                 using (var ms = new MemoryStream())
                 {
