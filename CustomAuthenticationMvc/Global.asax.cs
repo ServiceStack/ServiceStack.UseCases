@@ -15,7 +15,7 @@ namespace CustomAuthenticationMvc
         {
             AreaRegistration.RegisterAllAreas();
 
-            (new AppHost()).Init();
+            new AppHost().Init();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using ServiceStack;
+using ServiceStack.Auth;
 using ServiceStack.Web;
 
 namespace CustomAuthentication
@@ -9,23 +10,23 @@ namespace CustomAuthentication
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         protected void btnAuth_Click(object sender, EventArgs e)
         {
-            var baseUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/api";
-            var client = new JsonServiceClient(baseUrl);
-            var authResponse = client.Post<AuthenticateResponse>("/auth", new Authenticate
+            using (var authService = HostContext.ResolveService<AuthenticateService>())
+            {
+                var authResponse = authService.Authenticate(new Authenticate
                 {
                     UserName = tbUser.Text,
                     Password = tbPassword.Text
                 });
 
-            var requestContxt = HttpContext.Current.ToRequest();
-            ((IHttpResponse)requestContxt.Response).Cookies.AddSessionCookie(SessionFeature.SessionId, authResponse.SessionId);
+                var requestContxt = HttpContext.Current.ToRequest();
+                ((IHttpResponse)requestContxt.Response).Cookies.AddSessionCookie(SessionFeature.SessionId, authResponse.SessionId);
 
-            phAuthenticated.Visible = true;
+                phAuthenticated.Visible = true;
+            }
         }
     }
 }
