@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwaggerHelloWorld", "Swagge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging.Elmah", "Logging.Elmah\Logging.Elmah.csproj", "{EE0E6183-E241-492B-B5C2-6C36F1CF261F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwaggerHelloWorld.Logic", "SwaggerHelloWorld.Logic\SwaggerHelloWorld.Logic.csproj", "{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,6 +110,18 @@ Global
 		{EE0E6183-E241-492B-B5C2-6C36F1CF261F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EE0E6183-E241-492B-B5C2-6C36F1CF261F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EE0E6183-E241-492B-B5C2-6C36F1CF261F}.Release|x86.ActiveCfg = Release|Any CPU
+		{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}.Debug|x86.Build.0 = Debug|Any CPU
+		{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}.Release|x86.ActiveCfg = Release|Any CPU
+		{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

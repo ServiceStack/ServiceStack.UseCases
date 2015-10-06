@@ -102,6 +102,12 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SwaggerHelloWorld.Logic\SwaggerHelloWorld.Logic.csproj">
+      <Project>{5CC096B8-DCF8-4F46-9A87-F1E411DCCC6F}</Project>
+      <Name>SwaggerHelloWorld.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

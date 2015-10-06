@@ -5,6 +5,7 @@ using System.IO;
 using ServiceStack;
 using ServiceStack.Api.Swagger;
 using ServiceStack.Text;
+using SwaggerHelloWorld.Logic;
 using Container = Funq.Container;
 
 namespace HelloWorld
@@ -12,7 +13,9 @@ namespace HelloWorld
     //Configure AppHost
     public class AppHost : AppHostBase
     {
-        public AppHost() : base("Hello ServiceStack", typeof(Hello).Assembly) {}
+        public AppHost() : base("Hello ServiceStack", 
+            typeof(TestService).Assembly, typeof(HelloService).Assembly) {}
+
         public override void Configure(Container container)
         {
             JsConfig.EmitCamelCaseNames = true;
